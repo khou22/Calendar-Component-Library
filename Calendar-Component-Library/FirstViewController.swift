@@ -8,11 +8,16 @@
 
 import UIKit
 
-class FirstViewController: UIViewController {
+class FirstViewController: UIViewController, DayPickerDelegate {
+
+    @IBOutlet weak var DayPicker: DayPicker!
+    @IBOutlet weak var selectedDateLabel: UILabel!
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        
+        DayPicker.delegate = self // Delegate to self
     }
 
     override func didReceiveMemoryWarning() {
@@ -20,6 +25,10 @@ class FirstViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
 
+    func dateChange(date: Date) {
+        print("Date changed to \(date)")
+        selectedDateLabel.text = String(describing: date)
+    }
 
 }
 
