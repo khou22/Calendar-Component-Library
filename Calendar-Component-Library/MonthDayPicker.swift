@@ -30,7 +30,7 @@ class DayPicker: UIView {
     
     // Variables that will change on render
     private var startingDate: Date = Date().dateWithoutTime()
-    private var selectedIndex: Int = Date().getWeekday()
+    public var selectedIndex: Int = Date().getWeekday()
     private var inactiveDays: Int = Date().getWeekday() // Number of inactive tiles that happen before the current date
     private var events: [[EKEvent]] = Array(repeating: [], count: (4 * 7) + Date().getWeekday()) // Array of events for each day
     private var tileDates: [Date] = Array(repeating: Date().dateWithoutTime(), count: (4 * 7) + Date().getWeekday()) // Map ID to date
@@ -45,6 +45,7 @@ class DayPicker: UIView {
         self.backgroundColor = UIColor.white
         initializeData() // Initialize instance variables
         drawDaySquares() // Initialize UI
+        updateSelectedDay(newID: selectedIndex) // Set initial
     }
     
     func initializeData() {
