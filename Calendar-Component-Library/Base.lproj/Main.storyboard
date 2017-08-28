@@ -55,6 +55,13 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KUG-5R-d0u">
+                                <rect key="frame" x="86" y="580" width="203" height="30"/>
+                                <state key="normal" title="Set to 10 days ahead of today"/>
+                                <connections>
+                                    <action selector="updateDate:" destination="9pv-A4-QxB" eventType="touchUpInside" id="e0y-44-Slt"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -64,13 +71,15 @@
                             <constraint firstItem="FQS-tx-zKJ" firstAttribute="top" secondItem="Ia1-K6-d13" secondAttribute="bottom" constant="12" id="7If-Me-FED"/>
                             <constraint firstItem="ehs-4E-p8R" firstAttribute="top" secondItem="A5M-7J-77L" secondAttribute="bottom" constant="35" id="8bj-p5-QTU"/>
                             <constraint firstItem="aG1-yP-dED" firstAttribute="leading" secondItem="tsR-hK-woN" secondAttribute="leadingMargin" constant="20" id="EIq-Vj-8Z9"/>
-                            <constraint firstItem="KQZ-1w-vlD" firstAttribute="top" secondItem="FQS-tx-zKJ" secondAttribute="bottom" constant="100" id="ELy-5H-dxd"/>
                             <constraint firstItem="aG1-yP-dED" firstAttribute="top" secondItem="ehs-4E-p8R" secondAttribute="bottom" constant="8" id="Hr5-cF-JPO"/>
                             <constraint firstItem="A5M-7J-77L" firstAttribute="top" secondItem="KQZ-1w-vlD" secondAttribute="bottom" constant="8" symbolic="YES" id="cfb-er-3JN"/>
+                            <constraint firstItem="KUG-5R-d0u" firstAttribute="centerX" secondItem="tsR-hK-woN" secondAttribute="centerX" id="dVE-yi-CZy"/>
                             <constraint firstItem="A5M-7J-77L" firstAttribute="centerX" secondItem="KQZ-1w-vlD" secondAttribute="centerX" id="e1l-AV-tCB"/>
+                            <constraint firstItem="4ug-Mw-9AY" firstAttribute="top" secondItem="KUG-5R-d0u" secondAttribute="bottom" constant="8" id="e28-CA-Jv1"/>
                             <constraint firstAttribute="trailing" secondItem="FQS-tx-zKJ" secondAttribute="trailing" constant="12" id="e4X-z9-HHi"/>
                             <constraint firstItem="ehs-4E-p8R" firstAttribute="leading" secondItem="tsR-hK-woN" secondAttribute="leadingMargin" constant="20" id="ndm-MG-aB6"/>
                             <constraint firstAttribute="trailingMargin" secondItem="aG1-yP-dED" secondAttribute="trailing" constant="20" id="si3-Wu-Kvy"/>
+                            <constraint firstItem="KUG-5R-d0u" firstAttribute="top" secondItem="aG1-yP-dED" secondAttribute="bottom" constant="20" id="xwp-KQ-CsV"/>
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="First" image="first" id="acW-dT-cKf"/>

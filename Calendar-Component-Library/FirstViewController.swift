@@ -30,5 +30,9 @@ class FirstViewController: UIViewController, DayPickerDelegate {
         selectedDateLabel.text = String(describing: date)
     }
 
+    @IBAction func updateDate(_ sender: Any) {
+        let newDate: Date = Date().dateWithoutTime().addingTimeInterval(10 * 24.0 * 60.0 * 60.0)
+        DayPicker.setDate(date: newDate)
+    }
 }
 
