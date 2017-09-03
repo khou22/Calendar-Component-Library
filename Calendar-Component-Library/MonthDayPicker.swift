@@ -36,18 +36,28 @@ class MonthDayPicker: UIView {
     private var leftMonth: UIButton = UIButton()
     private var rightMonth: UIButton = UIButton()
     private var headerLabel: UILabel = UILabel()
+    private var tileContainer: UIView = UIView()
     
     override func draw(_ rect: CGRect) {
         calendarManager.requestAuthorization(completion: { (success) in
             print("Success: \(success)")
         })
         self.backgroundColor = UIColor.white
-        let header: UIView = createHeader(parent: rect);
-        self.addSubview(header) // Add header
         
-        // Add day of week header
+        // Headers
+        let header: UIView = createHeader(parent: rect);
         let weekdayHeader: UIView = createWeekdayHeader(frame: CGRect(x: rect.minX, y: header.frame.maxY, width: rect.width, height: 30))
+        
+        // Construct the container that will house all the tiles
+        let headerHeights: CGFloat = header.frame.height + weekdayHeader.frame.height
+        let containerFrame: CGRect = CGRect(x: rect.minX, y: rect.minY + headerHeights, width: rect.width, height: rect.height - headerHeights)
+        let container: UIView = UIView(frame: containerFrame)
+        container.backgroundColor = UIColor.darkGray
+        self.tileContainer = container // Set instance variable
+        
+        self.addSubview(header) // Add header
         self.addSubview(weekdayHeader)
+        self.addSubview(container)
     }
     
     public func setDate(date: Date) {
@@ -95,14 +105,12 @@ class MonthDayPicker: UIView {
     }
     
     private func createWeekdayHeader(frame: CGRect) -> UIView {
-        print("Parent frame: \(frame)")
         let header = UIView(frame: frame)
         header.backgroundColor = UIColor.white
         
         let labels = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
         
         let baseWidth: CGFloat = frame.width / 7.0
-        print("Base width: \(baseWidth)")
         for weekday in 0..<7 { // All 7 days of the week
             let dayFrame = CGRect(x: CGFloat(weekday) * baseWidth, y: 0, width: baseWidth, height: frame.height)
             let tile: UIView = UIView(frame: dayFrame)
