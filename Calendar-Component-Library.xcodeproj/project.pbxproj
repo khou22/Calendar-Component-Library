@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		271DD0971F5CB5F600BBD1DF /* MonthDayPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 271DD0961F5CB5F600BBD1DF /* MonthDayPicker.swift */; };
 		276E31301F4F6B31004819C9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 276E312F1F4F6B31004819C9 /* AppDelegate.swift */; };
 		276E31321F4F6B31004819C9 /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 276E31311F4F6B31004819C9 /* FirstViewController.swift */; };
 		276E31341F4F6B31004819C9 /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 276E31331F4F6B31004819C9 /* SecondViewController.swift */; };
@@ -15,7 +16,7 @@
 		276E313C1F4F6B31004819C9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 276E313A1F4F6B31004819C9 /* LaunchScreen.storyboard */; };
 		276E31471F4F6B31004819C9 /* Calendar_Component_LibraryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 276E31461F4F6B31004819C9 /* Calendar_Component_LibraryTests.swift */; };
 		276E31521F4F6B31004819C9 /* Calendar_Component_LibraryUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 276E31511F4F6B31004819C9 /* Calendar_Component_LibraryUITests.swift */; };
-		276E31601F4F6BA0004819C9 /* MonthDayPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 276E315F1F4F6BA0004819C9 /* MonthDayPicker.swift */; };
+		276E31601F4F6BA0004819C9 /* DayPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 276E315F1F4F6BA0004819C9 /* DayPicker.swift */; };
 		276E31631F4F81CD004819C9 /* DateHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 276E31621F4F81CD004819C9 /* DateHelper.swift */; };
 		276E31651F4FA557004819C9 /* CalendarManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 276E31641F4FA557004819C9 /* CalendarManager.swift */; };
 /* End PBXBuildFile section */
@@ -38,6 +39,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		271DD0961F5CB5F600BBD1DF /* MonthDayPicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MonthDayPicker.swift; sourceTree = "<group>"; };
 		276E312C1F4F6B31004819C9 /* Calendar-Component-Library.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Calendar-Component-Library.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		276E312F1F4F6B31004819C9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		276E31311F4F6B31004819C9 /* FirstViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstViewController.swift; sourceTree = "<group>"; };
@@ -52,7 +54,7 @@
 		276E314D1F4F6B31004819C9 /* Calendar-Component-LibraryUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Calendar-Component-LibraryUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		276E31511F4F6B31004819C9 /* Calendar_Component_LibraryUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Calendar_Component_LibraryUITests.swift; sourceTree = "<group>"; };
 		276E31531F4F6B31004819C9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		276E315F1F4F6BA0004819C9 /* MonthDayPicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MonthDayPicker.swift; sourceTree = "<group>"; };
+		276E315F1F4F6BA0004819C9 /* DayPicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DayPicker.swift; sourceTree = "<group>"; };
 		276E31621F4F81CD004819C9 /* DateHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateHelper.swift; sourceTree = "<group>"; };
 		276E31641F4FA557004819C9 /* CalendarManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -82,6 +84,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		271DD0981F5CC35D00BBD1DF /* Month Day Picker */ = {
+			isa = PBXGroup;
+			children = (
+				271DD0961F5CB5F600BBD1DF /* MonthDayPicker.swift */,
+			);
+			name = "Month Day Picker";
+			sourceTree = "<group>";
+		};
 		276E31231F4F6B30004819C9 = {
 			isa = PBXGroup;
 			children = (
@@ -108,7 +118,8 @@
 				276E312F1F4F6B31004819C9 /* AppDelegate.swift */,
 				276E31311F4F6B31004819C9 /* FirstViewController.swift */,
 				276E31331F4F6B31004819C9 /* SecondViewController.swift */,
-				276E31611F4F81A9004819C9 /* Month Day Picker */,
+				271DD0981F5CC35D00BBD1DF /* Month Day Picker */,
+				276E31611F4F81A9004819C9 /* Day Picker */,
 				276E31351F4F6B31004819C9 /* Main.storyboard */,
 				276E31381F4F6B31004819C9 /* Assets.xcassets */,
 				276E313A1F4F6B31004819C9 /* LaunchScreen.storyboard */,
@@ -135,14 +146,14 @@
 			path = "Calendar-Component-LibraryUITests";
 			sourceTree = "<group>";
 		};
-		276E31611F4F81A9004819C9 /* Month Day Picker */ = {
+		276E31611F4F81A9004819C9 /* Day Picker */ = {
 			isa = PBXGroup;
 			children = (
-				276E315F1F4F6BA0004819C9 /* MonthDayPicker.swift */,
+				276E315F1F4F6BA0004819C9 /* DayPicker.swift */,
 				276E31641F4FA557004819C9 /* CalendarManager.swift */,
 				276E31621F4F81CD004819C9 /* DateHelper.swift */,
 			);
-			name = "Month Day Picker";
+			name = "Day Picker";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -283,8 +294,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				276E31631F4F81CD004819C9 /* DateHelper.swift in Sources */,
+				271DD0971F5CB5F600BBD1DF /* MonthDayPicker.swift in Sources */,
 				276E31341F4F6B31004819C9 /* SecondViewController.swift in Sources */,
-				276E31601F4F6BA0004819C9 /* MonthDayPicker.swift in Sources */,
+				276E31601F4F6BA0004819C9 /* DayPicker.swift in Sources */,
 				276E31651F4FA557004819C9 /* CalendarManager.swift in Sources */,
 				276E31301F4F6B31004819C9 /* AppDelegate.swift in Sources */,
 				276E31321F4F6B31004819C9 /* FirstViewController.swift in Sources */,
@@ -540,6 +552,7 @@
 				276E31581F4F6B31004819C9 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		276E31591F4F6B31004819C9 /* Build configuration list for PBXNativeTarget "Calendar-Component-LibraryTests" */ = {
 			isa = XCConfigurationList;
@@ -548,6 +561,7 @@
 				276E315B1F4F6B31004819C9 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		276E315C1F4F6B31004819C9 /* Build configuration list for PBXNativeTarget "Calendar-Component-LibraryUITests" */ = {
 			isa = XCConfigurationList;
@@ -556,6 +570,7 @@
 				276E315E1F4F6B31004819C9 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

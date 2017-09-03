@@ -35,7 +35,19 @@ extension Date {
     
     func getDay() -> Int {
         let calendar = NSCalendar(calendarIdentifier: .gregorian)
-        let components: DateComponents = calendar!.components(.day, from: self) // Get day of the week
+        let components: DateComponents = calendar!.components(.day, from: self)
         return components.day!
+    }
+    
+    func getMonth() -> Int {
+        let calendar = NSCalendar(calendarIdentifier: .gregorian)
+        let components: DateComponents = calendar!.components(.day, from: self)
+        return components.month!
+    }
+    
+    func getYear() -> Int {
+        let calendar = NSCalendar(calendarIdentifier: .gregorian)
+        let components: DateComponents = calendar!.components(.day, from: self)
+        return components.year!
     }
 }
