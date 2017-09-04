@@ -173,7 +173,13 @@ class MonthDayPicker: UIView, DayTileDelegate {
             let backgroundColor: UIColor = self.colorScheme.withAlphaComponent(opacity)
             
             let tileFrame: CGRect = CGRect(x: CGFloat(xIndex) * baseWidth, y: CGFloat(yIndex) * baseHeight, width: baseWidth, height: baseHeight)
-            let tile: DayTile = DayTile(id: i, frame: tileFrame, label: String(i + 1), highlight: self.highlightColor, background: backgroundColor)
+            let tile: DayTile = DayTile(id: i, frame: tileFrame, label: String(i + 1), highlight: self.highlightColor, background: backgroundColor, forDate: dateForTile)
+            
+            // If it's selected
+            if (dateForTile.dateWithoutTime().compare(self.selectedDate.dateWithoutTime()) == .orderedSame) {
+                tile.select()
+                self.selectedIndex = i // Update selected index
+            }
             
             tile.addToView(parent: self.tileContainer) // Add to the tile container
             tile.delegate = self
@@ -182,6 +188,16 @@ class MonthDayPicker: UIView, DayTileDelegate {
     }
     
     // MARK - User Interaction Actions
+    
+    // Set the date
+    public func setDate(date: Date) {
+        self.monthAchor = date.firstDayInMonth() // Set the correct month
+        repopulate()
+        
+        // Get the new ID
+        let newId: Int = date.getDay() // Get index
+        selected(id: newId, date: date) // Select the date
+    }
     
     // Move to the next month
     @objc private func nextMonth(sender: UIButton!) {
@@ -217,9 +233,15 @@ class MonthDayPicker: UIView, DayTileDelegate {
     }
     
     // When a date is selected
-    func selected(id: Int) {
+    func selected(id: Int, date: Date) {
         self.tiles[self.selectedIndex].deselect()
         self.tiles[id].select()
-        self.selectedIndex = id // Update which is selected
+        
+        // Update which is selected
+        self.selectedIndex = id
+        self.selectedDate = date
+        
+        // Send protocol action
+        delegate?.dateChange!(date: date)
     }
 }

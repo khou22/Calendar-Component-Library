@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 
 @objc protocol DayTileDelegate: class {
-    @objc optional func selected(id: Int)
+    @objc optional func selected(id: Int, date: Date)
 }
 
 
@@ -27,8 +27,9 @@ class DayTile {
     private var highlightColor: UIColor
     private var selected: Bool = false // Default is false
     private var selectedMarker: UIView
+    private var date: Date // Which date it's referencing
     
-    init(id: Int, frame: CGRect, label: String, highlight: UIColor, background: UIColor) {
+    init(id: Int, frame: CGRect, label: String, highlight: UIColor, background: UIColor, forDate: Date) {
         // Set instance variables
         self.id = id
         self.label = UILabel(frame: frame)
@@ -37,6 +38,7 @@ class DayTile {
         self.view = UIView(frame: frame) // Create tile from frame
         self.label = DayTile.createLabel(frame: frame, label: label) // Create UI label
         self.selectedMarker = DayTile.createHighlightMarker(parent: frame, highlightColor: highlight)
+        self.date = forDate
         
         drawSquare()
     }
@@ -91,7 +93,7 @@ class DayTile {
     }
     
     @objc private func tapTile(sender: UITapGestureRecognizer) {
-        delegate?.selected!(id: self.id) // Send ID to parent
+        delegate?.selected!(id: self.id, date: self.date) // Send ID and date to parent
     }
     
     public func select() {

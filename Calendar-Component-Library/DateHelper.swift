@@ -40,9 +40,8 @@ extension Date {
     }
     
     func getMonth() -> Int {
-        let calendar = NSCalendar(calendarIdentifier: .gregorian)
-        let components: DateComponents = calendar!.components(.day, from: self)
-        return components.month!
+        let calendar = Calendar.current
+        return calendar.component(.month, from: self)
     }
     
     func getYear() -> Int {

@@ -10,6 +10,8 @@ import UIKit
 
 class SecondViewController: UIViewController {
 
+    @IBOutlet weak var monthDayPicker: MonthDayPicker!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -20,6 +22,9 @@ class SecondViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
 
-
+    @IBAction func setDateAheadFourty(_ sender: Any) {
+        let newDate = Date().dateWithoutTime().addingTimeInterval(40.0 * 24.0 * 60.0 * 60.0)
+        monthDayPicker.setDate(date: newDate)
+    }
 }
 

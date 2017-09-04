@@ -121,20 +121,32 @@
                                 <rect key="frame" x="16" y="28" width="343" height="360.5"/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jsj-uw-2aV">
+                                <rect key="frame" x="85" y="548" width="206" height="30"/>
+                                <state key="normal" title="Set to 40 days ahead of today"/>
+                                <connections>
+                                    <action selector="setDateAheadFourty:" destination="8rJ-Kc-sve" eventType="touchUpInside" id="g9O-DD-ZW9"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="9n3-pt-gxL" firstAttribute="trailing" secondItem="QS5-Rx-YEW" secondAttribute="trailingMargin" id="Cfs-Pn-WTT"/>
                             <constraint firstItem="NDk-cv-Gan" firstAttribute="top" secondItem="zEq-FU-wV5" secondAttribute="bottom" constant="8" symbolic="YES" id="Day-4N-Vmt"/>
+                            <constraint firstItem="jsj-uw-2aV" firstAttribute="centerX" secondItem="QS5-Rx-YEW" secondAttribute="centerX" id="Izz-oY-3W0"/>
                             <constraint firstItem="NDk-cv-Gan" firstAttribute="centerX" secondItem="zEq-FU-wV5" secondAttribute="centerX" id="JgO-Fn-dHn"/>
                             <constraint firstItem="9n3-pt-gxL" firstAttribute="leading" secondItem="QS5-Rx-YEW" secondAttribute="leadingMargin" id="OGq-tt-JGS"/>
                             <constraint firstItem="zEq-FU-wV5" firstAttribute="top" secondItem="9n3-pt-gxL" secondAttribute="bottom" constant="24" id="cob-cD-fgI"/>
                             <constraint firstItem="9n3-pt-gxL" firstAttribute="top" secondItem="L7p-HK-0SC" secondAttribute="bottom" constant="8" id="jaK-n0-zzq"/>
                             <constraint firstAttribute="centerX" secondItem="zEq-FU-wV5" secondAttribute="centerX" id="qqM-NS-xev"/>
                             <constraint firstAttribute="centerY" secondItem="zEq-FU-wV5" secondAttribute="centerY" constant="-100" id="qzY-Ky-pLD"/>
+                            <constraint firstItem="Djb-ko-YwX" firstAttribute="top" secondItem="jsj-uw-2aV" secondAttribute="bottom" constant="40" id="rbh-Oh-YPI"/>
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="First" image="first" id="cPa-gy-q4n"/>
+                    <connections>
+                        <outlet property="monthDayPicker" destination="9n3-pt-gxL" id="nEd-HA-uMd"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4Nw-L8-lE0" sceneMemberID="firstResponder"/>
             </objects>
