@@ -20,6 +20,11 @@ class MonthDayPicker: UIView {
     private let highlightColor = UIColor(colorLiteralRed: 226.0/255.0, green: 111.0/255.0, blue: 80.0/255.0, alpha: 1.0)
     private let colorScheme = UIColor(red: 225.0/255.0, green: 145.0/255.0, blue: 124.0/255.0, alpha: 1.0)
     
+    // Colors
+    private let lightGrey = UIColor(red: 221.0/255.0, green: 221.0/255.0, blue: 221.0/255.0, alpha: 1.0)
+    private let grey = UIColor(red: 239.0/255.0, green: 239.0/255.0, blue: 239.0/255.0, alpha: 1.0)
+    private let darkGrey = UIColor(red: 60.0/255.0, green: 60.0/255.0, blue: 60.0/255.0, alpha: 1.0)
+    
     // Delegate to make sure parent conforms
     weak var delegate: DayPickerDelegate?
     
@@ -53,7 +58,7 @@ class MonthDayPicker: UIView {
         let headerHeights: CGFloat = header.frame.height + weekdayHeader.frame.height
         let containerFrame: CGRect = CGRect(x: rect.minX, y: rect.minY + headerHeights, width: rect.width, height: rect.height - headerHeights)
         let container: UIView = UIView(frame: containerFrame)
-        container.backgroundColor = UIColor.darkGray
+        container.backgroundColor = UIColor.white
         self.tileContainer = container // Set instance variable
         
         self.addSubview(header) // Add header
@@ -66,7 +71,7 @@ class MonthDayPicker: UIView {
     
     private func createHeader(parent: CGRect) -> UIView {
         // Create the header
-        let headerFrame: CGRect = CGRect(x: parent.minX, y: parent.minY, width: parent.width, height: 40)
+        let headerFrame: CGRect = CGRect(x: parent.minX, y: parent.minY, width: parent.width, height: 50)
         let header: UIView = UIView(frame: headerFrame)
         header.backgroundColor = UIColor.white
         
@@ -76,13 +81,11 @@ class MonthDayPicker: UIView {
         let rightFrame = CGRect(x: parent.maxX - buttonWidth, y: parent.minY, width: buttonWidth, height: headerFrame.height)
         let leftButton: UIButton = UIButton(frame: leftFrame)
         let rightButton: UIButton = UIButton(frame: rightFrame)
-        leftButton.backgroundColor = UIColor.blue
-        rightButton.backgroundColor = UIColor.blue
         
         leftButton.setTitle("<", for: .normal)
-        leftButton.setTitleColor(UIColor.gray, for: .normal)
+        leftButton.setTitleColor(self.darkGrey, for: .normal)
         rightButton.setTitle(">", for: .normal)
-        rightButton.setTitleColor(UIColor.gray, for: .normal)
+        rightButton.setTitleColor(self.darkGrey, for: .normal)
         
         self.leftMonth = leftButton
         self.rightMonth = rightButton
@@ -91,6 +94,8 @@ class MonthDayPicker: UIView {
         let headerLabelFrame = CGRect(x: leftFrame.maxX, y: parent.minY, width: parent.width - (2 * buttonWidth), height: headerFrame.height)
         let headerLabel: UILabel = UILabel(frame: headerLabelFrame)
         headerLabel.textAlignment = .center
+        headerLabel.textColor = self.darkGrey
+        headerLabel.font.withSize(22.0) // Larger font size
         let formatter = DateFormatter()
         formatter.dateFormat = "MMMM y"
         headerLabel.text = formatter.string(from: self.currentDate)
@@ -121,7 +126,9 @@ class MonthDayPicker: UIView {
             label.text = labels[weekday]
             
             if (weekday % 2 == 1) { // Odd number
-                tile.backgroundColor = UIColor.gray
+                tile.backgroundColor = self.lightGrey
+            } else {
+                tile.backgroundColor = self.grey
             }
             
             tile.addSubview(label)
@@ -133,11 +140,16 @@ class MonthDayPicker: UIView {
     }
     
     private func drawDaySquares() {
-        let baseWidth = self.tileContainer.frame.width / 7.0
-        
         let firstDayOfMonth: Date = self.monthAchor.firstDayInMonth()
         let startingWeekday: Int = firstDayOfMonth.getWeekday()
         let lengthOfMonth: Int = firstDayOfMonth.lengthOfMonth()
+        let numberOfRows: CGFloat = CGFloat(ceil(Double(startingWeekday + lengthOfMonth) / 7.0)) // Number of rows needed
+        
+        // Base sizing
+        let baseWidth = self.tileContainer.frame.width / 7.0
+        var baseHeight = self.tileContainer.frame.height / numberOfRows
+        
+        baseHeight = baseHeight > baseWidth ? baseWidth : baseHeight // Should never be taller than it is wide  
         
         // For each day of the month
         for i in 0..<lengthOfMonth {
@@ -153,9 +165,7 @@ class MonthDayPicker: UIView {
             if (opacity >= 1.0) { opacity = 1.0 } // Max full opacity
             let backgroundColor: UIColor = self.colorScheme.withAlphaComponent(opacity)
             
-            let tileFrame: CGRect = CGRect(x: CGFloat(xIndex) * baseWidth, y: CGFloat(yIndex) * baseWidth, width: baseWidth, height: baseWidth)
-            print(dateForTile)
-            print(tileFrame)
+            let tileFrame: CGRect = CGRect(x: CGFloat(xIndex) * baseWidth, y: CGFloat(yIndex) * baseHeight, width: baseWidth, height: baseHeight)
             let tile: DayTile = DayTile(id: i, frame: tileFrame, label: String(i + 1), highlight: self.highlightColor, background: backgroundColor)
             
             tile.addToView(parent: self.tileContainer) // Add to the tile container

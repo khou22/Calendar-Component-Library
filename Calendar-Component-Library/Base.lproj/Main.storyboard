@@ -118,7 +118,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9n3-pt-gxL" customClass="MonthDayPicker" customModule="Calendar_Component_Library" customModuleProvider="target">
-                                <rect key="frame" x="16" y="28" width="343" height="376.5"/>
+                                <rect key="frame" x="16" y="28" width="343" height="360.5"/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
                         </subviews>
@@ -128,7 +128,7 @@
                             <constraint firstItem="NDk-cv-Gan" firstAttribute="top" secondItem="zEq-FU-wV5" secondAttribute="bottom" constant="8" symbolic="YES" id="Day-4N-Vmt"/>
                             <constraint firstItem="NDk-cv-Gan" firstAttribute="centerX" secondItem="zEq-FU-wV5" secondAttribute="centerX" id="JgO-Fn-dHn"/>
                             <constraint firstItem="9n3-pt-gxL" firstAttribute="leading" secondItem="QS5-Rx-YEW" secondAttribute="leadingMargin" id="OGq-tt-JGS"/>
-                            <constraint firstItem="zEq-FU-wV5" firstAttribute="top" secondItem="9n3-pt-gxL" secondAttribute="bottom" constant="8" id="cob-cD-fgI"/>
+                            <constraint firstItem="zEq-FU-wV5" firstAttribute="top" secondItem="9n3-pt-gxL" secondAttribute="bottom" constant="24" id="cob-cD-fgI"/>
                             <constraint firstItem="9n3-pt-gxL" firstAttribute="top" secondItem="L7p-HK-0SC" secondAttribute="bottom" constant="8" id="jaK-n0-zzq"/>
                             <constraint firstAttribute="centerX" secondItem="zEq-FU-wV5" secondAttribute="centerX" id="qqM-NS-xev"/>
                             <constraint firstAttribute="centerY" secondItem="zEq-FU-wV5" secondAttribute="centerY" constant="-100" id="qzY-Ky-pLD"/>
