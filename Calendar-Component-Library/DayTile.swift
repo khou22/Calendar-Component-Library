@@ -9,7 +9,15 @@
 import Foundation
 import UIKit
 
+@objc protocol DayTileDelegate: class {
+    @objc optional func selected(id: Int)
+}
+
+
 class DayTile {
+    
+    // Delegate to make sure parent conforms
+    weak var delegate: DayTileDelegate?
     
     // Instance variables
     private var view: UIView
@@ -40,9 +48,13 @@ class DayTile {
         // Style tile
         self.view.backgroundColor = self.backgroundColor
         
+        // User interaction
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.tapTile(sender:)))
+        self.view.addGestureRecognizer(tap)
+        
         // Add content to view
         self.view.addSubview(self.label)
-        self.view.addSubview(self.selectedMarker)
+        self.view.insertSubview(self.selectedMarker, belowSubview: self.label)
     }
     
     public func addToView(parent: UIView) {
@@ -70,11 +82,16 @@ class DayTile {
         marker.backgroundColor = highlightColor
         
         // Make into a circle
-        marker.layer.cornerRadius = minLength / 2
+        let minRadius = min(markerFrame.width, markerFrame.height)
+        marker.layer.cornerRadius = minRadius / 2
         marker.layer.masksToBounds = true
         marker.layer.isHidden = true // Hide all initially
         
         return marker
+    }
+    
+    @objc private func tapTile(sender: UITapGestureRecognizer) {
+        delegate?.selected!(id: self.id) // Send ID to parent
     }
     
     public func select() {

@@ -13,7 +13,7 @@ import EventKit
     @objc optional func dateChange(date: Date)
 }
 
-class MonthDayPicker: UIView {
+class MonthDayPicker: UIView, DayTileDelegate {
     
     // Options
     private let sensitivity: CGFloat = 8.0 // X events a day is the peak color
@@ -26,12 +26,13 @@ class MonthDayPicker: UIView {
     private let darkGrey = UIColor(red: 60.0/255.0, green: 60.0/255.0, blue: 60.0/255.0, alpha: 1.0)
     
     // Delegate to make sure parent conforms
-    weak var delegate: DayPickerDelegate?
+    weak var delegate: MonthDayPickerDelegate?
     
     // Helper to retrieve calendar events
     private let calendarManager: CalendarManager = CalendarManager()
     
     // Current parameters
+    private var selectedIndex: Int = 0
     private var selectedDate: Date = Date().dateWithoutTime() // Default is today
     private var monthAchor: Date = Date().dateWithoutTime() // Anchors the month/year
     
@@ -43,6 +44,7 @@ class MonthDayPicker: UIView {
     private var rightMonth: UIButton = UIButton()
     private var headerLabel: UILabel = UILabel()
     private var tileContainer: UIView = UIView()
+    private var tiles: [DayTile] = []
     
     override func draw(_ rect: CGRect) {
         calendarManager.requestAuthorization(completion: { (success) in
@@ -76,7 +78,7 @@ class MonthDayPicker: UIView {
         header.backgroundColor = UIColor.white
         
         // Create left/right buttons
-        let buttonWidth: CGFloat = 20.0
+        let buttonWidth: CGFloat = 40.0
         let leftFrame = CGRect(x: parent.minX, y: parent.minY, width: buttonWidth, height: headerFrame.height)
         let rightFrame = CGRect(x: parent.maxX - buttonWidth, y: parent.minY, width: buttonWidth, height: headerFrame.height)
         let leftButton: UIButton = UIButton(frame: leftFrame)
@@ -84,8 +86,10 @@ class MonthDayPicker: UIView {
         
         leftButton.setTitle("<", for: .normal)
         leftButton.setTitleColor(self.darkGrey, for: .normal)
+        leftButton.addTarget(self, action: #selector(self.previousMonth(sender:)), for: .touchUpInside)
         rightButton.setTitle(">", for: .normal)
         rightButton.setTitleColor(self.darkGrey, for: .normal)
+        rightButton.addTarget(self, action: #selector(self.nextMonth(sender:)), for: .touchUpInside)
         
         self.leftMonth = leftButton
         self.rightMonth = rightButton
@@ -149,7 +153,10 @@ class MonthDayPicker: UIView {
         let baseWidth = self.tileContainer.frame.width / 7.0
         var baseHeight = self.tileContainer.frame.height / numberOfRows
         
-        baseHeight = baseHeight > baseWidth ? baseWidth : baseHeight // Should never be taller than it is wide  
+        baseHeight = baseHeight > baseWidth ? baseWidth : baseHeight // Should never be taller than it is wide
+        
+        // Store instance of each day in global array
+        self.tiles = [] // Reset
         
         // For each day of the month
         for i in 0..<lengthOfMonth {
@@ -169,6 +176,50 @@ class MonthDayPicker: UIView {
             let tile: DayTile = DayTile(id: i, frame: tileFrame, label: String(i + 1), highlight: self.highlightColor, background: backgroundColor)
             
             tile.addToView(parent: self.tileContainer) // Add to the tile container
+            tile.delegate = self
+            self.tiles.append(tile)
         }
+    }
+    
+    // MARK - User Interaction Actions
+    
+    // Move to the next month
+    @objc private func nextMonth(sender: UIButton!) {
+        let daysAhead = Double(self.monthAchor.lengthOfMonth()) + 15.0 // Go to middle of next month
+        let midNextMonth: Date = self.monthAchor.addingTimeInterval(daysAhead * 24.0 * 60.0 * 60.0)
+        self.monthAchor = midNextMonth.firstDayInMonth() // Advance to first day of next month
+        
+        repopulate()
+    }
+    
+    // Move to the previous month
+    @objc private func previousMonth(sender: UIButton!) {
+        let midPreviousMonth: Date = self.monthAchor.addingTimeInterval(-15 * 24.0 * 60.0 * 60.0)
+        self.monthAchor = midPreviousMonth.firstDayInMonth() // Advance to first day of previous month
+        
+        repopulate()
+    }
+    
+    // Redraw neccessary assets
+    private func repopulate() {
+        
+        // Update header
+        let formatter = DateFormatter()
+        formatter.dateFormat = "MMMM y"
+        self.headerLabel.text = formatter.string(from: self.monthAchor)
+        
+        // Remove all views from tile container
+        for view in self.tileContainer.subviews {
+            view.removeFromSuperview()
+        }
+    
+        drawDaySquares() // Redraw the tiles
+    }
+    
+    // When a date is selected
+    func selected(id: Int) {
+        self.tiles[self.selectedIndex].deselect()
+        self.tiles[id].select()
+        self.selectedIndex = id // Update which is selected
     }
 }
