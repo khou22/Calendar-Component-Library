@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		271DD0971F5CB5F600BBD1DF /* MonthDayPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 271DD0961F5CB5F600BBD1DF /* MonthDayPicker.swift */; };
+		2760224D1F5CCC7D0045F6A6 /* DayTile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2760224C1F5CCC7D0045F6A6 /* DayTile.swift */; };
 		276E31301F4F6B31004819C9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 276E312F1F4F6B31004819C9 /* AppDelegate.swift */; };
 		276E31321F4F6B31004819C9 /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 276E31311F4F6B31004819C9 /* FirstViewController.swift */; };
 		276E31341F4F6B31004819C9 /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 276E31331F4F6B31004819C9 /* SecondViewController.swift */; };
@@ -40,6 +41,7 @@
 
 /* Begin PBXFileReference section */
 		271DD0961F5CB5F600BBD1DF /* MonthDayPicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MonthDayPicker.swift; sourceTree = "<group>"; };
+		2760224C1F5CCC7D0045F6A6 /* DayTile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DayTile.swift; sourceTree = "<group>"; };
 		276E312C1F4F6B31004819C9 /* Calendar-Component-Library.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Calendar-Component-Library.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		276E312F1F4F6B31004819C9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		276E31311F4F6B31004819C9 /* FirstViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstViewController.swift; sourceTree = "<group>"; };
@@ -88,6 +90,7 @@
 			isa = PBXGroup;
 			children = (
 				271DD0961F5CB5F600BBD1DF /* MonthDayPicker.swift */,
+				2760224C1F5CCC7D0045F6A6 /* DayTile.swift */,
 			);
 			name = "Month Day Picker";
 			sourceTree = "<group>";
@@ -297,6 +300,7 @@
 				271DD0971F5CB5F600BBD1DF /* MonthDayPicker.swift in Sources */,
 				276E31341F4F6B31004819C9 /* SecondViewController.swift in Sources */,
 				276E31601F4F6BA0004819C9 /* DayPicker.swift in Sources */,
+				2760224D1F5CCC7D0045F6A6 /* DayTile.swift in Sources */,
 				276E31651F4FA557004819C9 /* CalendarManager.swift in Sources */,
 				276E31301F4F6B31004819C9 /* AppDelegate.swift in Sources */,
 				276E31321F4F6B31004819C9 /* FirstViewController.swift in Sources */,

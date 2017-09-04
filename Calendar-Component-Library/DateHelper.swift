@@ -50,4 +50,16 @@ extension Date {
         let components: DateComponents = calendar!.components(.day, from: self)
         return components.year!
     }
+    
+    func firstDayInMonth() -> Date {
+        let calendar = NSCalendar(calendarIdentifier: .gregorian)
+        let components: DateComponents = calendar!.components([.year, .month], from: self)
+        return calendar!.date(from: components)!
+    }
+    
+    func lengthOfMonth() -> Int {
+        let calendar: NSCalendar = NSCalendar(calendarIdentifier: .gregorian)!
+        let daysInMonth = calendar.range(of: .day, in: .month, for: self)
+        return daysInMonth.length
+    }
 }

@@ -16,7 +16,7 @@ import EventKit
 class MonthDayPicker: UIView {
     
     // Options
-    private let sensitivity: Int = 8 // X events a day is the peak color
+    private let sensitivity: CGFloat = 8.0 // X events a day is the peak color
     private let highlightColor = UIColor(colorLiteralRed: 226.0/255.0, green: 111.0/255.0, blue: 80.0/255.0, alpha: 1.0)
     private let colorScheme = UIColor(red: 225.0/255.0, green: 145.0/255.0, blue: 124.0/255.0, alpha: 1.0)
     
@@ -28,6 +28,7 @@ class MonthDayPicker: UIView {
     
     // Current parameters
     private var selectedDate: Date = Date().dateWithoutTime() // Default is today
+    private var monthAchor: Date = Date().dateWithoutTime() // Anchors the month/year
     
     // Today
     private let currentDate: Date = Date().dateWithoutTime()
@@ -58,9 +59,9 @@ class MonthDayPicker: UIView {
         self.addSubview(header) // Add header
         self.addSubview(weekdayHeader)
         self.addSubview(container)
-    }
-    
-    public func setDate(date: Date) {
+        
+        // Add the tiles to the container view
+        drawDaySquares()
     }
     
     private func createHeader(parent: CGRect) -> UIView {
@@ -132,86 +133,32 @@ class MonthDayPicker: UIView {
     }
     
     private func drawDaySquares() {
-
-    }
-    
-    private class DayTile {
+        let baseWidth = self.tileContainer.frame.width / 7.0
         
-        // Instance variables
-        private var view: UIView
-        private var label: UILabel
-        private var id: Int
-        private var backgroundColor: UIColor
-        private var highlightColor: UIColor
-        private var selected: Bool = false // Default is false
-        private var selectedMarker: UIView
+        let firstDayOfMonth: Date = self.monthAchor.firstDayInMonth()
+        let startingWeekday: Int = firstDayOfMonth.getWeekday()
+        let lengthOfMonth: Int = firstDayOfMonth.lengthOfMonth()
         
-        init(id: Int, frame: CGRect, label: String, highlight: UIColor, background: UIColor) {
-            // Set instance variables
-            self.id = id
-            self.label = UILabel(frame: frame)
-            self.backgroundColor = background
-            self.highlightColor = highlight
-            self.view = UIView(frame: frame) // Create tile from frame
-            self.label = DayTile.createLabel(frame: frame, label: label) // Create UI label
-            self.selectedMarker = DayTile.createHighlightMarker(parent: frame, highlightColor: highlight)
-        }
-        
-        private func drawSquare() {
-            // Set meta data
-            self.view.tag = self.id
-        }
-        
-        public func addToView(parent: UIView) {
-            parent.addSubview(self.view) // Add the tile to the subview
-        }
-        
-        private static func createLabel(frame: CGRect, label: String) -> UILabel {
-            let dateLabel: UILabel = UILabel(frame: frame) // Create label
-            dateLabel.text = label // Set text
-            dateLabel.textAlignment = .center // Center aligned
-            dateLabel.adjustsFontSizeToFitWidth = true
-            dateLabel.font.withSize(10.0)
-            dateLabel.textColor = UIColor.black
+        // For each day of the month
+        for i in 0..<lengthOfMonth {
+            let dateForTile: Date = firstDayOfMonth.addingTimeInterval(Double(i) * 24.0 * 60.0 * 60.0) // Add i number of days
+            let gridIndex = startingWeekday + i // The position in "grid"
             
-            return dateLabel
-        }
-        
-        private static func createHighlightMarker(parent: CGRect, highlightColor: UIColor) -> UIView {
-            let scale: CGFloat = 0.825 // Percent scaled down
-            let minLength: CGFloat = min(parent.width, parent.height)
+            // Get the x and y coordinates
+            let xIndex = gridIndex % 7
+            let yIndex = floor(Double(gridIndex) / 7.0)
             
-            let padding: CGFloat = minLength * ((1 - scale) / 2) // Calculate the padding
-            let markerFrame: CGRect = CGRect(x: parent.minX + padding, y: parent.minY + padding, width: parent.width * scale, height: parent.height * scale)
-            let marker: UIView = UIView(frame: markerFrame)
-            marker.backgroundColor = highlightColor
+            // Calculate background color
+            var opacity: CGFloat = CGFloat(calendarManager.getEvents(day: dateForTile).count) / self.sensitivity
+            if (opacity >= 1.0) { opacity = 1.0 } // Max full opacity
+            let backgroundColor: UIColor = self.colorScheme.withAlphaComponent(opacity)
             
-            // Make into a circle
-            marker.layer.cornerRadius = minLength / 2
-            marker.layer.masksToBounds = true
-            marker.layer.isHidden = true // Hide all initially
+            let tileFrame: CGRect = CGRect(x: CGFloat(xIndex) * baseWidth, y: CGFloat(yIndex) * baseWidth, width: baseWidth, height: baseWidth)
+            print(dateForTile)
+            print(tileFrame)
+            let tile: DayTile = DayTile(id: i, frame: tileFrame, label: String(i + 1), highlight: self.highlightColor, background: backgroundColor)
             
-            return marker
-        }
-        
-        public func select() {
-            self.selectedMarker.layer.isHidden = false // Make highlight marker visible
-            self.label.textColor = UIColor.white // Make text white
-            self.label.font.withSize(14.0)
-            self.animateHighlight() // Animate the highlight interaction
-        }
-        
-        public func deselect() {
-            self.selectedMarker.layer.isHidden = true // Make highlight marker invisible
-            self.label.textColor = UIColor.black // Make text black again
-            self.label.font.withSize(10.0)
-        }
-        
-        private func animateHighlight() {
-            self.selectedMarker.transform = CGAffineTransform(scaleX: 1.2, y: 1.2) // Animate large to normal
-            UIView.animate(withDuration: 0.15, delay: 0.0, options: .curveEaseInOut, animations: {
-                self.selectedMarker.transform = .identity // Make normal size
-            }, completion: nil)
+            tile.addToView(parent: self.tileContainer) // Add to the tile container
         }
     }
 }
