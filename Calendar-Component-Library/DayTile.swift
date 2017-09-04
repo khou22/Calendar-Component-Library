@@ -79,7 +79,7 @@ class DayTile {
         let minLength: CGFloat = min(parent.width, parent.height)
         
         let padding: CGFloat = minLength * ((1 - scale) / 2) // Calculate the padding
-        let markerFrame: CGRect = CGRect(x: padding, y: padding, width: parent.width * scale, height: parent.height * scale)
+        let markerFrame: CGRect = CGRect(x: padding, y: padding, width: parent.width - (2 * padding), height: parent.height - (2 * padding))
         let marker: UIView = UIView(frame: markerFrame)
         marker.backgroundColor = highlightColor
         

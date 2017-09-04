@@ -67,6 +67,16 @@ class MonthDayPicker: UIView, DayTileDelegate {
         self.addSubview(weekdayHeader)
         self.addSubview(container)
         
+        // Add swiping gesture functionality
+        let swipeRight = UISwipeGestureRecognizer(target: self, action: #selector(self.nextMonth(sender:)))
+        swipeRight.direction = .right
+        swipeRight.cancelsTouchesInView = false
+        let swipeLeft = UISwipeGestureRecognizer(target: self, action: #selector(self.previousMonth(sender:)))
+        swipeLeft.direction = .left
+        swipeLeft.cancelsTouchesInView = false
+        self.addGestureRecognizer(swipeRight)
+        self.addGestureRecognizer(swipeLeft)
+        
         // Add the tiles to the container view
         drawDaySquares()
     }
@@ -200,7 +210,7 @@ class MonthDayPicker: UIView, DayTileDelegate {
     }
     
     // Move to the next month
-    @objc private func nextMonth(sender: UIButton!) {
+    @objc private func nextMonth(sender: UIButton?) {
         let daysAhead = Double(self.monthAchor.lengthOfMonth()) + 15.0 // Go to middle of next month
         let midNextMonth: Date = self.monthAchor.addingTimeInterval(daysAhead * 24.0 * 60.0 * 60.0)
         self.monthAchor = midNextMonth.firstDayInMonth() // Advance to first day of next month
@@ -209,7 +219,7 @@ class MonthDayPicker: UIView, DayTileDelegate {
     }
     
     // Move to the previous month
-    @objc private func previousMonth(sender: UIButton!) {
+    @objc private func previousMonth(sender: UIButton?) {
         let midPreviousMonth: Date = self.monthAchor.addingTimeInterval(-15 * 24.0 * 60.0 * 60.0)
         self.monthAchor = midPreviousMonth.firstDayInMonth() // Advance to first day of previous month
         
