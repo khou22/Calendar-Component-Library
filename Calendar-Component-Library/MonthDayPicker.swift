@@ -68,10 +68,10 @@ class MonthDayPicker: UIView, DayTileDelegate {
         self.addSubview(container)
         
         // Add swiping gesture functionality
-        let swipeRight = UISwipeGestureRecognizer(target: self, action: #selector(self.nextMonth(sender:)))
+        let swipeRight = UISwipeGestureRecognizer(target: self, action: #selector(self.previousMonth(sender:)))
         swipeRight.direction = .right
         swipeRight.cancelsTouchesInView = false
-        let swipeLeft = UISwipeGestureRecognizer(target: self, action: #selector(self.previousMonth(sender:)))
+        let swipeLeft = UISwipeGestureRecognizer(target: self, action: #selector(self.nextMonth(sender:)))
         swipeLeft.direction = .left
         swipeLeft.cancelsTouchesInView = false
         self.addGestureRecognizer(swipeRight)
